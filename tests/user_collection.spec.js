@@ -1,5 +1,5 @@
 const User = require('../models/user')
-const { UserCollection, IdIncrementor } = require('../data/user_collection')
+const UserCollection = require('../data/user_collection')
 
 describe('UserCollection', () => {
   describe('addUser', () => {
@@ -105,24 +105,5 @@ describe('UserCollection', () => {
         expect(updatedUser.lastName).toEqual('baz')
       })
     })
-  })
-})
-
-describe('IdIncrementor', () => {
-  it("should return an Id", () => {
-    const incrementor = new IdIncrementor()
-    expect(incrementor.current).toEqual('00000')
-  })
-
-  it('should increment an id', () => {
-    const incrementor = new IdIncrementor()
-    incrementor.next
-    expect(incrementor.current).toEqual('00001')
-    incrementor.next
-    expect(incrementor.current).toEqual('00002')
-    incrementor.next
-    expect(incrementor.current).toEqual('00003')
-    incrementor.next
-    expect(incrementor.current).toEqual('00004')
   })
 })

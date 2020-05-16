@@ -1,9 +1,10 @@
 const User = require('../models/user')
+const IdGenerator = require('./id_generator')
 
 class UserCollection {
   constructor() {
     this._userMap = new Map()
-    this._incrementor = new IdIncrementor()
+    this._incrementor = new IdGenerator()
   }
 
   /** Collection information */
@@ -43,21 +44,4 @@ class UserCollection {
   deleteUserList(list) { return list.map(userId => this.deleteUser(userId)) }
 }
 
-class IdIncrementor {
-  ID_LENGTH = 5
-
-  constructor() {
-    this._currentId = 0
-  }
-
-  get current() { return this._toString() }
-
-  get next() { 
-    this._currentId++
-    return this._toString()
-  }
-
-  _toString() { return `${this._currentId}`.padStart(this.ID_LENGTH, '0') }
-}
-
-module.exports = { UserCollection, IdIncrementor }
+module.exports = UserCollection
