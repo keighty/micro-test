@@ -1,10 +1,8 @@
 // The user JSON can just be id, first name, last name, zip code, and email address.
 class User {
-  constructor({ email, firstName, lastName, zipCode }) {
-    if (!email) {
-      throw new Error('Email is required')
-    }
-
+  constructor({ id, email, firstName, lastName, zipCode }) {
+    if (!email) throw INVALID_EMAIL_ERROR
+    this._id = id
     this._email = email
     this._firstName = firstName
     this._lastName = lastName
@@ -18,10 +16,21 @@ class User {
   get zipCode() { return this._zipCode }
 
   set id(id) { this._id = id }
-  set email(email) { this._email = email }
   set firstName(name) { this._firstName = name }
   set lastName(name) { this._lastName = name }
   set zipCode(code) { this._zipCode = code }
+  set email(email) { 
+    if (!email) throw INVALID_EMAIL_ERROR
+    this._email = email
+  }
+
+  update({id, email, firstName, lastName, zipCode}) {
+    this._id = id
+    this._email = email || this._email // fallback to existing email
+    this._firstName = firstName
+    this._lastName = lastName
+    this._zipCode = zipCode
+  }
 
   _values() {
     return {
@@ -35,5 +44,7 @@ class User {
 
   toJSON() { return JSON.stringify(this._values()) }
 }
+
+const INVALID_EMAIL_ERROR = new Error('Invalid email')
 
 module.exports = User

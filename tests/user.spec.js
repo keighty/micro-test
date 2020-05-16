@@ -14,7 +14,7 @@ describe('User', () => {
       new User()
     }
 
-    expect(createUserWithoutEmail).toThrow()
+    expect(createUserWithoutEmail).toThrow
   })
 
   describe('properties', () => {
@@ -25,19 +25,19 @@ describe('User', () => {
     })
 
     it('should get and set a firstName', () => {
-      expect(user.firstName).toBeUndefined()
+      expect(user.firstName).toBeUndefined
       user.firstName = 'foo'
       expect(user.firstName).toEqual('foo')
     })
 
     it('should get and set a lastName', () => {
-      expect(user.lastName).toBeUndefined()
+      expect(user.lastName).toBeUndefined
       user.lastName = 'bar'
       expect(user.lastName).toEqual('bar')
     })
 
     it('should get and set a zipCode', () => {
-      expect(user.zipCode).toBeUndefined()
+      expect(user.zipCode).toBeUndefined
       user.zipCode = '00000'
       expect(user.zipCode).toEqual('00000')
     })
@@ -46,6 +46,27 @@ describe('User', () => {
       expect(user.email).toEqual('foo@example.com')
       user.email = 'bar@example.com'
       expect(user.email).toEqual('bar@example.com')
+    })
+
+    it('should throw if trying to set email to undefined', () => {
+      const setEmailToUndefined = () => user.email = undefined
+
+      expect(setEmailToUndefined).toThrow
+    })
+  })
+
+  describe('update', () => {
+    it("should update the user with provided data", () => {
+      const user = new User({email: "example@example.com"})
+      user.update({email: "free@tacos.com", lastName: "Tacos", firstName: "Free"})
+      expect(user.firstName).toEqual('Free')
+      expect(user.zipCode).toBeUndefined
+    })
+
+    it("should not overwrite a valid email address", () => {
+      const user = new User({email: "example@example.com"})
+      user.update({email: undefined})
+      expect(user.email).toEqual('example@example.com')
     })
   })
 

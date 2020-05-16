@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const UserCollection = require('../data/user_collection')
+const { UserCollection } = require('../data/user_collection')
 
 const userCollection = new UserCollection()
 
