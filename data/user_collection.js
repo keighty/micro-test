@@ -9,8 +9,9 @@ class UserCollection {
   get size() { return this._userMap.size }
   get all() { return Array.from(this._userMap.values()) }
 
-  addUser(user) {
+  addUser(userData) {
     const id = this._incrementor.next
+    const user = new User(userData) 
     user.id = id
     this._userMap.set(id, user)
     return user

@@ -7,4 +7,4 @@ Create a microservice with the following:
 * [ ] Add Metrics (e.g. statsd, dropwizard, prometheus, to time routes)
 * [ ] Write unit tests for the service.
 * [ ] Generate a code coverage report.
-* [ ] The user JSON can just be id, first name, last name, zip code, and email address.
+* [X] The user JSON can just be id, first name, last name, zip code, and email address.
