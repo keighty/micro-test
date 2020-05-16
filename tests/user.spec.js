@@ -58,8 +58,8 @@ describe('User', () => {
   describe('update', () => {
     it("should update the user with provided data", () => {
       const user = new User({email: "example@example.com"})
-      user.update({email: "free@tacos.com", lastName: "Tacos", firstName: "Free"})
-      expect(user.firstName).toEqual('Free')
+      user.update({email: "free@example.com", lastName: "biz", firstName: "Buzz"})
+      expect(user.firstName).toEqual('Buzz')
       expect(user.zipCode).toBeUndefined
     })
 

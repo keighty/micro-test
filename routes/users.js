@@ -1,29 +1,37 @@
 const express = require('express');
 const router = express.Router();
+const querystring = require('querystring');
 const { UserCollection } = require('../data/user_collection')
 
 const userCollection = new UserCollection()
 
-// GET ALL
+// GET ALL OR LIST OF USERS
 router.get('/', function(req, res, next) {
-  res.send(userCollection.all)
+  const { query } = req
+  if (!query.list) {
+    res.send(userCollection.all)
+  } else { 
+    const list = query.list.split(',')
+    const users = userCollection.getUserList(list)
+    res.send(users)
+  }
 });
 
-// CREATE
+// CREATE SINGLE OR LIST OF USERS
 router.post('/', function (req, res, next) {
   const data = req.body
-  const user = userCollection.addUser(data)
-  res.send(user)
+  const users = data.map(userData => userCollection.addUser(userData))
+  res.send(users)
 });
 
-// GET USER
+// GET SINGLE USER
 router.get('/:userId', function (req, res, next) {
   const userId = req.params.userId
   const user = userCollection.getUser(userId)
   res.send(user);
 });
 
-// UPDATE
+// UPDATE USER
 router.put('/:userId', function (req, res, next) {
   const data = req.body
   const userId = req.params.userId
@@ -36,12 +44,26 @@ router.put('/:userId', function (req, res, next) {
   res.send(user);
 });
 
+// UPDATE LIST OF USERS
+router.put('/', function (req, res, next) {
+  const data = req.body
+  const updatedUsers = userCollection.updateUserList(data)
+  res.send(updatedUsers);
+});
+
 // DELETE
 router.delete('/:userId', function (req, res, next) {
   const userId = req.params.userId
   console.log(userId)
   const user = userCollection.deleteUser(userId)
   res.send(user);
+});
+
+// DELETE LIST OF USERS
+router.delete('/', function (req, res, next) {
+  const data = req.body
+  const deletedUsers = userCollection.deleteUserList(data)
+  res.send(deletedUsers);
 });
 
 module.exports = router;
