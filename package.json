@@ -3,7 +3,9 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www"
+    "start": "nodemon ./bin/www",
+    "test": "jest",
+    "test-watch": "jest --watch"
   },
   "dependencies": {
     "body-parser": "~1.15.1",
@@ -13,5 +15,8 @@
     "jade": "~1.11.0",
     "morgan": "~1.7.0",
     "serve-favicon": "~2.3.0"
+  },
+  "devDependencies": {
+    "jest": "26.0.1"
   }
 }

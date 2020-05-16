@@ -5,28 +5,35 @@ class User {
       throw new Error('Email is required')
     }
 
-    this.id = Math.floor(Math.random() * Math.floor(1000))
-    this.email = email
-    this.firstName = firstName
-    this.lastName = lastName
-    this.zipCode = zipCode
+    this._email = email
+    this._firstName = firstName
+    this._lastName = lastName
+    this._zipCode = zipCode
   }
 
-  set email(email) {
-    this.email = email
+  get id() { return this._id }
+  get email() { return this._email }
+  get firstName() { return this._firstName }
+  get lastName() { return this._lastName }
+  get zipCode() { return this._zipCode }
+
+  set id(id) { this._id = id }
+  set email(email) { this._email = email }
+  set firstName(name) { this._firstName = name }
+  set lastName(name) { this._lastName = name }
+  set zipCode(code) { this._zipCode = code }
+
+  _values() {
+    return {
+      id: this.id,
+      email: this.email,
+      firstName: this.firstName,
+      lastName: this.lastName,
+      zipCode: this.zipCode
+    }
   }
 
-  set firstName(name) {
-    this.firstName = name
-  }
-
-  set lastName(name) {
-    this.lastName = name
-  }
-
-  set zipCode(code) {
-    this.zipCode = code
-  }
+  toJSON() { return JSON.stringify(this._values()) }
 }
 
 module.exports = User
