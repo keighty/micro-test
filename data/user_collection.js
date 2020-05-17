@@ -35,7 +35,7 @@ class UserCollection {
   }
 
   /** List actions */
-  createUserList(list, userData) { return list.map(userId => this.addUser(userData)) }
+  createUserList(list) { return list.map(userData => this.addUser(userData)) }
 
   getUserList(list) { return list.map(userId => this.getUser(userId)) }
 

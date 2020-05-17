@@ -20,7 +20,7 @@ router.get('/', function(req, res, next) {
 // CREATE SINGLE OR LIST OF USERS
 router.post('/', function (req, res, next) {
   const data = req.body
-  const users = data.map(userData => userCollection.addUser(userData))
+  const users = userCollection.createUserList(data)
   res.send(users)
 });
 

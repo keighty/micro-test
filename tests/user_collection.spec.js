@@ -81,6 +81,17 @@ describe('UserCollection', () => {
       userCollection.addUser(new User({ email: 'zap@example.com' }))
     })
 
+    describe('CREATE list', () => {
+      it("should create a list of users in the collection", () => {
+        const list = [
+          { email: "zip@example.com" },
+          { email: "zap@example.com" }
+        ]
+        const create2Users = userCollection.createUserList(list)
+        expect(create2Users.length).toEqual(2)
+      })
+    })
+
     describe('GET list', () => {
       it("should retrive part of the collection", () => {
         expect(userCollection.size).toEqual(5)

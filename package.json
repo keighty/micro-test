@@ -1,11 +1,12 @@
 {
-  "name": "UserService",
+  "name": "user-service",
   "version": "0.0.0",
   "private": true,
   "scripts": {
     "start": "nodemon ./bin/www",
     "test": "jest",
-    "test-watch": "jest --watch"
+    "watch": "jest --watch",
+    "coverage": "jest --coverage"
   },
   "dependencies": {
     "body-parser": "~1.15.1",
@@ -18,5 +19,16 @@
   },
   "devDependencies": {
     "jest": "26.0.1"
+  },
+  "jest": {
+    "collectCoverage": true,
+    "collectCoverageFrom": [
+      "**/models/*.{js,jsx}",
+      "**/data/*.{js,jsx}",
+      "**/routes/*.{js,jsx}",
+      "!**/node_modules/**",
+      "!**/vendor/**",
+      "!**/scripts/**"
+    ]
   }
 }
