@@ -52,8 +52,9 @@ describe('UserCollection', () => {
       it("should delete a user by id", () => {
         expect(userCollection.size).toEqual(5)
         const idToDelete = '00004'
+        expect(userCollection.getUser(idToDelete)).toBeDefined
         userCollection.deleteUser(idToDelete)
-        expect(userCollection.getUser(idToDelete)).toBeUndefined()
+        expect(userCollection.getUser(idToDelete)).toBeUndefined
         expect(userCollection.size).toEqual(4)
       })
     })
@@ -115,6 +116,35 @@ describe('UserCollection', () => {
         const updatedUser = userCollection.getUser("00001")
         expect(updatedUser.lastName).toEqual('baz')
       })
+    })
+  })
+
+  describe('Log user actions', () => {
+    let userCollection
+    let logger
+    beforeEach(() => {
+      logger = {
+        log: jest.fn()
+      }
+      userCollection = new UserCollection(logger)
+      userCollection.addUser({email: 'foo@example.com'})
+    })
+
+    it('should log the deletion of a user', () => {
+      userCollection.deleteUser('00001')
+      expect(logger.log.mock.calls.length).toBe(1)
+    })
+
+    it('should log an update to a user', () => {
+      userCollection.updateUser('00001', {lastName: 'Baz'})
+      expect(logger.log.mock.calls.length).toBe(1)
+    })
+
+    it('should log a missing user for RUD actions', () => {
+      userCollection.updateUser('99999')
+      userCollection.getUser('99999')
+      userCollection.deleteUser('99999')
+      expect(logger.log.mock.calls.length).toBe(3)
     })
   })
 })

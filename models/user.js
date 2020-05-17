@@ -1,12 +1,12 @@
-// The user JSON can just be id, first name, last name, zip code, and email address.
+/**
+ * User class
+ * The user JSON can just be id, first name, last name, zip code, and email address.
+ */
 class User {
-  constructor({ id, email, firstName, lastName, zipCode }) {
-    if (!email) throw INVALID_EMAIL_ERROR
-    this._id = id
-    this._email = email
-    this._firstName = firstName
-    this._lastName = lastName
-    this._zipCode = zipCode
+  constructor({ id, email, firstName, lastName, zipCode }, logger) {
+    if (!email) this._handleInvalidEmail(email)
+    this.update({id, email, firstName, lastName, zipCode})
+    this._logger = logger
   }
 
   get id() { return this._id }
@@ -20,7 +20,7 @@ class User {
   set lastName(name) { this._lastName = name }
   set zipCode(code) { this._zipCode = code }
   set email(email) { 
-    if (!email) throw INVALID_EMAIL_ERROR
+    if (!email) this._handleInvalidEmail(email)
     this._email = email
   }
 
@@ -43,8 +43,11 @@ class User {
   }
 
   toJSON() { return JSON.stringify(this._values()) }
-}
 
-const INVALID_EMAIL_ERROR = new Error('Invalid email')
+  _handleInvalidEmail = (email) => {
+    this._logger && this._logger.log('error', 'Invalid email', new Error(`Invalid email provided: ${email}`))
+    throw new Error('Invalid email')
+  }
+}
 
 module.exports = User

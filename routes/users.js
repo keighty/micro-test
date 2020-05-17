@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const querystring = require('querystring');
 const UserCollection = require('../data/user_collection')
+const logger = require('../config/logger')
 
 const statsd = (path) => {
   return (req, res, next) => {
@@ -12,7 +13,7 @@ const statsd = (path) => {
 }
 
 /** Initialize the in-memory datastore */
-const userCollection = new UserCollection()
+const userCollection = new UserCollection(logger)
 
 /**
  * localhost:3000/users

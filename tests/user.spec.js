@@ -17,6 +17,12 @@ describe('User', () => {
     expect(createUserWithoutEmail).toThrow
   })
 
+  it('should return valid JSON', () => {
+    const testUserData = { email: "bar@example.com" }
+    const user = new User(testUserData)
+    expect(user.toJSON()).toEqual("{\"email\":\"bar@example.com\"}")
+  })
+
   describe('properties', () => {
     let user;
     beforeEach(() => {
@@ -70,9 +76,14 @@ describe('User', () => {
     })
   })
 
-  it('should return valid JSON', () => {
-    const testUserData = { email: "bar@example.com" }
-    const user = new User(testUserData)
-    expect(user.toJSON()).toEqual("{\"email\":\"bar@example.com\"}")
+  describe('logger', () => {
+    it('should log an error when an invalid email address is provided', () => {
+      const invalidEmailProvided = () => {
+        const logger = { log: jest.fn() }
+        new User({}, logger)
+        expect(logger.log.mock.calls.length).toEqual(1)
+      }
+      expect(invalidEmailProvided).toThrow
+    })
   })
 })
