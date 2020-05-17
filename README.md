@@ -6,7 +6,7 @@ Create a microservice with the following:
 * [X] A User rest Resource that allows clients to create, read, update, delete a user or a list of users.
 * [X] You can use a database of your choice but it’s also fine to just use a map or dictionary in memory to keep track of users by their ids.
 * [ ] Use structured logging.
-* [ ] Add Metrics (e.g. statsd, dropwizard, prometheus, to time routes)
+* [X] Add Metrics (e.g. statsd, dropwizard, prometheus, to time routes)
 * [X] Write unit tests for the service.
 * [X] Generate a code coverage report.
 * [X] The user JSON can just be id, first name, last name, zip code, and email address.
@@ -20,6 +20,11 @@ I chose node because I have been working mainly in javascript lately, I started 
 
 #### Datastore selection
 To make it simple to spin up and test the app, I decided to do without a separate database. In this example I have used a basic Map (as suggested), and would likely wrap any datastore activity in a similar UserCollection.
+
+### StatsD
+Coming from New Relic, I haven't explored many open source frameworks for instrumentation. I included statsd and basic route naming.
+
+TODO: setup statsd server for collecting and visualizing the data
 
 ### Get started
 
