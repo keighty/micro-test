@@ -4,9 +4,9 @@
  */
 class User {
   constructor({ id, email, firstName, lastName, zipCode }, logger) {
+    this._logger = logger
     if (!email) this._handleInvalidEmail(email)
     this.update({ id, email, firstName, lastName, zipCode })
-    this._logger = logger
   }
 
   get id() {
@@ -65,13 +65,8 @@ class User {
   }
 
   _handleInvalidEmail = (email) => {
-    this._logger &&
-      this._logger.log(
-        'error',
-        'Invalid email',
-        new Error(`Invalid email provided: ${email}`)
-      )
-    throw new Error('Invalid email')
+    this._logger && this._logger.log('error', 'No email provided')
+    throw new Error('No email provided')
   }
 }
 
