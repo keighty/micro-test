@@ -20,7 +20,8 @@
     "winston": "3.2.1"
   },
   "devDependencies": {
-    "jest": "26.0.1"
+    "jest": "26.0.1",
+    "supertest": "4.0.2"
   },
   "jest": {
     "collectCoverage": true,
