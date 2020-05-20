@@ -1,7 +1,7 @@
 const IdGenerator = require('../data/id_generator')
 
 describe('IdGenerator', () => {
-  it("should return an Id", () => {
+  it('should return an Id', () => {
     const incrementor = new IdGenerator()
     expect(incrementor.current).toEqual('00000')
   })

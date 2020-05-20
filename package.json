@@ -6,7 +6,9 @@
     "start": "nodemon ./bin/www",
     "test": "jest",
     "watch": "jest --watch",
-    "coverage": "jest --coverage"
+    "coverage": "jest --coverage",
+    "prettier": "prettier .",
+    "prettier:fix": "prettier --write \"**/*.*\""
   },
   "dependencies": {
     "body-parser": "~1.15.1",
@@ -21,6 +23,7 @@
   },
   "devDependencies": {
     "jest": "26.0.1",
+    "prettier": "2.0.5",
     "supertest": "4.0.2"
   },
   "jest": {
@@ -33,5 +36,11 @@
       "!**/vendor/**",
       "!**/scripts/**"
     ]
+  },
+  "prettier": {
+    "trailingComma": "none",
+    "tabWidth": 2,
+    "semi": false,
+    "singleQuote": true
   }
 }
