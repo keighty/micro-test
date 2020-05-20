@@ -9,20 +9,24 @@ class UserCollection {
   }
 
   /** Collection information */
-  get size() { return this._userMap.size }
-  get all() { return Array.from(this._userMap.values()) }
+  get size() {
+    return this._userMap.size
+  }
+  get all() {
+    return Array.from(this._userMap.values())
+  }
 
   /** Single record actions */
   addUser(userData) {
     const id = this._incrementor.next
     // use the same logger instance if one is available
-    const user = new User(userData, this._logger) 
+    const user = new User(userData, this._logger)
     user.id = id
     this._userMap.set(id, user)
     return user
   }
 
-  getUser(userId) { 
+  getUser(userId) {
     const user = this._userMap.get(userId)
     if (user) {
       return user
@@ -55,21 +59,37 @@ class UserCollection {
   }
 
   /** List actions */
-  createUserList(list) { return list.map(userData => this.addUser(userData)) }
+  createUserList(list) {
+    return list.map((userData) => this.addUser(userData))
+  }
 
-  getUserList(list) { return list.map(userId => this.getUser(userId)) }
+  getUserList(list) {
+    return list.map((userId) => this.getUser(userId))
+  }
 
-  updateUserList(list) { return list.map(({id, ...newData}) => this.updateUser(id, newData)) }
+  updateUserList(list) {
+    return list.map(({ id, ...newData }) => this.updateUser(id, newData))
+  }
 
-  deleteUserList(list) { return list.map(userId => this.deleteUser(userId)) }
+  deleteUserList(list) {
+    return list.map((userId) => this.deleteUser(userId))
+  }
 
   /** Log destructive actions */
-  _logDeletedUser(user) { this._logger && this._logger.log('warn', 'Deleted user', user.toJSON()) }
-  _logUpdatedUser(oldValues, newValues) {
-    this._logger && this._logger.log('warn', 'Updated user', `originalValues: ${oldValues}; newValues: ${newValues}`)
+  _logDeletedUser(user) {
+    this._logger && this._logger.log('warn', 'Deleted user', user.toJSON())
   }
-  _logMissingUser(userId) { this._logger && this._logger.log('warn', 'Unknown userId', {userId}) }
-
+  _logUpdatedUser(oldValues, newValues) {
+    this._logger &&
+      this._logger.log(
+        'warn',
+        'Updated user',
+        `originalValues: ${oldValues}; newValues: ${newValues}`
+      )
+  }
+  _logMissingUser(userId) {
+    this._logger && this._logger.log('warn', 'Unknown userId', { userId })
+  }
 }
 
 module.exports = UserCollection

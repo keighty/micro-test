@@ -9,8 +9,6 @@ describe('GET /users', () => {
 
     await request(app)
       .get('/users')
-      .expect([
-        '{"id":"00001","email":"foo@example.com"}'
-      ])
+      .expect(['{"id":"00001","email":"foo@example.com"}'])
   })
 })
