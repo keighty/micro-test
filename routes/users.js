@@ -25,31 +25,47 @@ router.get('/', statsd('getUserList'), (req, res, next) => {
   if (!query.list) {
     res.send(userCollection.all)
   } else {
-    const list = query.list.split(',')
-    const users = userCollection.getUserList(list)
-    res.send(users)
+    try {
+      const list = query.list.split(',')
+      const users = userCollection.getUserList(list)
+      res.send(users)
+    } catch (err) {
+      next(err)
+    }
   }
 })
 
 // CREATE SINGLE OR LIST OF USERS
 router.post('/', statsd('createUserList'), (req, res, next) => {
   const data = req.body
-  const users = userCollection.createUserList(data)
-  res.send(users)
+  try {
+    const users = userCollection.createUserList(data)
+    res.send(users)
+  } catch (err) {
+    next(err)
+  }
 })
 
 // UPDATE LIST OF USERS
 router.put('/', statsd('updateUserList'), (req, res, next) => {
   const data = req.body
-  const updatedUsers = userCollection.updateUserList(data)
-  res.send(updatedUsers)
+  try {
+    const updatedUsers = userCollection.updateUserList(data)
+    res.send(updatedUsers)
+  } catch (err) {
+    next(err)
+  }
 })
 
 // DELETE LIST OF USERS
 router.delete('/', statsd('deleteUserList'), (req, res, next) => {
   const data = req.body
-  const deletedUsers = userCollection.deleteUserList(data)
-  res.send(deletedUsers)
+  try {
+    const deletedUsers = userCollection.deleteUserList(data)
+    res.send(deletedUsers)
+  } catch (err) {
+    next(err)
+  }
 })
 
 /**
@@ -59,28 +75,36 @@ router.delete('/', statsd('deleteUserList'), (req, res, next) => {
 // GET SINGLE USER
 router.get('/:userId', statsd('getUser'), (req, res, next) => {
   const userId = req.params.userId
-  const user = userCollection.getUser(userId)
-  res.send(user)
+  try {
+    const user = userCollection.getUser(userId)
+    res.send(user)
+  } catch (err) {
+    next(err)
+  }
 })
 
 // UPDATE SINGLE USER
 router.put('/:userId', statsd('updateUser'), (req, res, next) => {
   const data = req.body
   const userId = req.params.userId
-  const user = userCollection.getUser(userId)
-  if (!user) {
-    res.status(404).send(`Error updating user: no userId ${userId}`)
-  } else {
+  try {
+    const user = userCollection.getUser(userId)
     userCollection.updateUser(userId, data)
+    res.send(user)
+  } catch (err) {
+    next(err)
   }
-  res.send(user)
 })
 
 // DELETE SINGLE USER
 router.delete('/:userId', statsd('deleteUser'), (req, res, next) => {
   const userId = req.params.userId
-  const user = userCollection.deleteUser(userId)
-  res.send(user)
+  try {
+    const user = userCollection.deleteUser(userId)
+    res.send(user)
+  } catch (err) {
+    next(err)
+  }
 })
 
 module.exports = router

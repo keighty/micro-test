@@ -54,7 +54,6 @@ describe('UserCollection', () => {
         const idToDelete = '00004'
         expect(userCollection.getUser(idToDelete)).toBeDefined
         userCollection.deleteUser(idToDelete)
-        expect(userCollection.getUser(idToDelete)).toBeUndefined
         expect(userCollection.size).toEqual(4)
       })
     })
@@ -141,13 +140,6 @@ describe('UserCollection', () => {
     it('should log an update to a user', () => {
       userCollection.updateUser('00001', { lastName: 'Baz' })
       expect(logger.log.mock.calls.length).toBe(1)
-    })
-
-    it('should log a missing user for RUD actions', () => {
-      userCollection.updateUser('99999')
-      userCollection.getUser('99999')
-      userCollection.deleteUser('99999')
-      expect(logger.log.mock.calls.length).toBe(3)
     })
   })
 })

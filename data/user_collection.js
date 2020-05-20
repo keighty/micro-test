@@ -32,6 +32,7 @@ class UserCollection {
       return user
     } else {
       this._logMissingUser(userId)
+      throw Error(`No user found with id ${userId}`)
     }
   }
 
@@ -44,6 +45,7 @@ class UserCollection {
       return user
     } else {
       this._logMissingUser(userId)
+      throw Error(`No user found with id ${userId}`)
     }
   }
 
@@ -55,6 +57,7 @@ class UserCollection {
       return user
     } else {
       this._logMissingUser(userId)
+      throw Error(`No user found with id ${userId}`)
     }
   }
 
